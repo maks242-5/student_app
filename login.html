@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Авторизація</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header class="navbar">
+        <a href="/" class="navbar-brand">🎓 StudentApp</a>
+        <nav class="navbar-nav">
+            <a href="/" class="navbar-link">Головна</a>
+            <a href="/students" class="navbar-link">Студенти</a>
+            <a href="/search_greades" class="navbar-link">Оцінки</a>
+            <a href="/add_student" class="navbar-link">Додати</a>
+            <a href="/join" class="navbar-link">Оновлення</a>
+            <a href="/login" class="navbar-link active">Вхід</a>
+        </nav>
+    </header>
+
+    <main class="container" style="max-width: 450px;">
+        <div class="card">
+            <h2 class="card-title">Авторизація</h2>
+            <p class="card-subtitle">Введіть ваші дані для входу в кабінет.</p>
+
+            <form method="POST" action="/login">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+                <div class="form-group">
+                    <label class="form-label">Нікнейм</label>
+                    <input type="text" name="username" class="form-control" placeholder="Твій нікнейм" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Пароль</label>
+                    <input type="password" name="password" class="form-control" placeholder="••••••••" required>
+                </div>
+
+                <button type="submit" class="btn btn-secondary" style="margin-bottom:1rem;">Увійти</button>
+                <p style="font-size:0.85rem; text-align:center; color:#64748b;">Ще немає акаунту? <a href="/register" style="color:#4f46e5; font-weight:600; text-decoration:none;">Зареєструватися</a></p>
+            </form>
+        </div>
+    </main>
+
+    <footer class="footer">&copy; 2026 StudentApp.</footer>
+</body>
+</html>

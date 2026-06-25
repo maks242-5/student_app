@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Пошук оцінок</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header class="navbar">
+        <a href="/" class="navbar-brand">🎓 StudentApp</a>
+        <nav class="navbar-nav">
+            <a href="/" class="navbar-link">Головна</a>
+            <a href="/students" class="navbar-link">Студенти</a>
+            <a href="/search_greades" class="navbar-link active">Оцінки</a>
+            <a href="/add_student" class="navbar-link">Додати</a>
+            <a href="/join" class="navbar-link">Оновлення</a>
+            <a href="/login" class="navbar-link">Вхід</a>
+        </nav>
+    </header>
+
+    <main class="container" style="max-width: 700px;">
+        <div class="card" style="margin-bottom: 2rem;">
+            <h2 class="card-title">Пошук успішності</h2>
+            <p class="card-subtitle">Введіть ім'я студента, щоб побачити його залікову книжку.</p>
+            
+            <form method="POST" action="/search_greades" style="display:flex; gap: 0.5rem;">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <div style="flex-grow:1;">
+                    <input type="text" name="username" class="form-control" placeholder="Введіть повне ім'я..." required>
+                </div>
+                <button type="submit" class="btn" style="width:auto; padding: 0.65rem 1.5rem;">Шукати</button>
+            </form>
+
+            {% if message %}
+                <div class="alert alert-error" style="margin-top:1rem; margin-bottom:0;">{{ message }}</div>
+            {% endif %}
+        </div>
+
+        {% if data %}
+        <div class="card">
+            <div style="border-bottom: 1px solid #e2e8f0; padding-bottom: 1rem; margin-bottom: 1.5rem;">
+                <h2 style="font-size:1.5rem; color:#0f172a;">Результати студента: {{ data.name }}</h2>
+                <p style="font-size:0.85rem; color:#64748b; margin-top:0.25rem;">Група: {{ data.group }} | Заклад: {{ data.university }}</p>
+            </div>
+
+            <div class="exam-list">
+                {% for i in data_grades %}
+                <div class="exam-item">
+                    <div>
+                        <h4 style="font-weight:600; color:#1e293b;">{{ i.subject }}</h4>
+                        <p style="font-size:0.75rem; color:#94a3b8;">Прохідний бал: {{ i.passing_grade }}</p>
+                    </div>
+                    <div style="display:flex; align-items:center; gap: 1rem;">
+                        <span style="font-size:1.1rem; font-weight:700;">{{ i.grade }} б.</span>
+                        {% if i.passed %}
+                            <span class="badge badge-success">Зараховано</span>
+                        {% else %}
+                            <span class="badge badge-error">Незарах</span>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+    </main>
+
+    <footer class="footer">&copy; 2026 StudentApp.</footer>
+</body>
+</html>

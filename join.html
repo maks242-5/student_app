@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Отримання оновлень</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header class="navbar">
+        <a href="/" class="navbar-brand">🎓 StudentApp</a>
+        <nav class="navbar-nav">
+            <a href="/" class="navbar-link">Головна</a>
+            <a href="/students" class="navbar-link">Студенти</a>
+            <a href="/search_greades" class="navbar-link">Оцінки</a>
+            <a href="/add_student" class="navbar-link">Додати</a>
+            <a href="/join" class="navbar-link active">Оновлення</a>
+            <a href="/login" class="navbar-link">Вхід</a>
+        </nav>
+    </header>
+
+    <main class="container" style="max-width: 550px;">
+        <div class="card">
+            <h2 class="card-title">Форма учасника</h2>
+            <p class="card-subtitle">Заповніть анкету, щоб отримувати сповіщення про зміни.</p>
+            
+            <form method="POST">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+                <div class="form-group">
+                    <label class="form-label">Ваше ім'я</label>
+                    <input type="text" name="name" class="form-control" placeholder="Введіть ім'я" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Email адреса</label>
+                    <input type="email" name="email" class="form-control" placeholder="name@example.com" required>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Місто / Про себе</label>
+                        <input type="text" name="about" class="form-control" placeholder="Місто проживання" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Країна</label>
+                        <input type="text" name="country" class="form-control" placeholder="Україна" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Номер телефону</label>
+                    <input type="text" name="phone" class="form-control" placeholder="+380..." required>
+                </div>
+
+                <button type="submit" class="btn">Надіслати анкету</button>
+            </form>
+        </div>
+    </main>
+
+    <footer class="footer">&copy; 2026 StudentApp.</footer>
+</body>
+</html>
